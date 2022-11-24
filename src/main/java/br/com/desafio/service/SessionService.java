@@ -78,7 +78,7 @@ public class SessionService {
     public void consolidateSession() {
         sessionRepository.findByConsolidatedFalseAndSessionEndLessThan(LocalDateTime.now())
                 .flatMap(session -> {
-                    queueSender.send(String.format("pastel[%s]", session.getId()));
+                    queueSender.send(String.format("voto[%s]", session.getId()));
                     session.setConsolidated(true);
                     return sessionRepository.save(session);
                 })
